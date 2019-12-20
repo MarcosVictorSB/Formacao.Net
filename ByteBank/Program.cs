@@ -13,27 +13,52 @@ namespace ByteBank.Funcionarios
     {
         static void Main(string[] args)
         {
-            CalcularBonificacao();
+            // CalcularBonificacao();
+
+            UsarSistema();
             Console.ReadLine();
         }
+
+        public static void UsarSistema()
+        {
+            SistemaInterno sistemaInterno = new SistemaInterno();
+
+            Diretor roberta = new Diretor("159.753.398-04");
+            roberta.Nome = "Roberta";
+            roberta.Senha = "123";
+
+            GerenteDeConta camila = new GerenteDeConta("3226.985.628-89");
+            camila.Nome = "Camila";
+            camila.Senha = "abc";
+
+            sistemaInterno.Logar(camila, "abc");
+            sistemaInterno.Logar(roberta, "abc");
+
+            
+               
+        
+
+        }
+
+
 
         public static void CalcularBonificacao()
         {
             GerenciadorBonificacao gerenciadorBonificacao = new GerenciadorBonificacao();
 
-            Funcionarios pedro = new Designer("833.222.048-39");
+            Funcionario pedro = new Designer("833.222.048-39");
             pedro.Nome = "Pedro";
 
-            Funcionarios roberta = new Diretor("159.753.398-04");
-            roberta.Nome = "Robera";
+            Funcionario roberta = new Diretor("159.753.398-04");
+            roberta.Nome = "Roberta";
 
-            Funcionarios igor = new Auxiliar("981.198.778-53");
+            Funcionario igor = new Auxiliar("981.198.778-53");
             igor.Nome = "Igor";
 
-            Funcionarios camila = new GerenteDeConta("3226.985.628-89");
+            Funcionario camila = new GerenteDeConta("3226.985.628-89");
             camila.Nome = "Camila";
 
-            Funcionarios guilherme = new Desenvolvedor("456.175.468-95");
+            Funcionario guilherme = new Desenvolvedor("456.175.468-95");
             guilherme.Nome = "guilherme";
 
 
