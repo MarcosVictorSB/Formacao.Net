@@ -1,76 +1,92 @@
-﻿using ByteBank.Funcionarios;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-
-namespace ByteBank.Funcionarios
+namespace ByteBank
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // CalcularBonificacao();
 
-            UsarSistema();
+            try
+            {
+                CarregarContas();
+            }
+            catch (Exception)
+            {
+
+                Console.WriteLine("CATCH NO METODO MAIN");
+            }
+
+            Console.WriteLine("Execução finalizada. Tecle enter para sair");
             Console.ReadLine();
         }
 
-        public static void UsarSistema()
+        private static void CarregarContas()
         {
-            SistemaInterno sistemaInterno = new SistemaInterno();
 
-            Diretor roberta = new Diretor("159.753.398-04");
-            roberta.Nome = "Roberta";
-            roberta.Senha = "123";
+            using (LeitorDeArquivos leitor = new LeitorDeArquivos("teste.txt"))
+            {
+                leitor.LerProximaLinha();
+            }
 
-            GerenteDeConta camila = new GerenteDeConta("3226.985.628-89");
-            camila.Nome = "Camila";
-            camila.Senha = "abc";
 
-            sistemaInterno.Logar(camila, "abc");
-            sistemaInterno.Logar(roberta, "abc");
 
+
+
+
+
+
+
+
+
+
+
+
+
+            //LeitorDeArquivos leitor = null;
+            //try
+            //{
+            //    leitor = new LeitorDeArquivos("contas.txt");
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //    leitor.LerProximaLinha();
+            //}
+            //finally
+            //{
+            //    if(leitor != null)
+            //        leitor.Fechar();
+            //}
+
+
+        }
+
+        private static void TestaInnerException()
+        {
+            try
+            {
+                ContaCorrente conta1 = new ContaCorrente(15, 54545);
+                ContaCorrente conta2 = new ContaCorrente(15, 54545);
+
+                conta1.Transferir(10000, conta2);
+            }
+            catch (OperacaoFinanceiraException e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+
+                //    Console.WriteLine("Informações da INNER EXCEPTION (exceção interna): ");
+                //    Console.WriteLine(e.InnerException.Message);
+                //    Console.WriteLine(e.InnerException.StackTrace);
+                //
+            }
+
+        }
             
-               
-        
-
-        }
-
-
-
-        public static void CalcularBonificacao()
-        {
-            GerenciadorBonificacao gerenciadorBonificacao = new GerenciadorBonificacao();
-
-            Funcionario pedro = new Designer("833.222.048-39");
-            pedro.Nome = "Pedro";
-
-            Funcionario roberta = new Diretor("159.753.398-04");
-            roberta.Nome = "Roberta";
-
-            Funcionario igor = new Auxiliar("981.198.778-53");
-            igor.Nome = "Igor";
-
-            Funcionario camila = new GerenteDeConta("3226.985.628-89");
-            camila.Nome = "Camila";
-
-            Funcionario guilherme = new Desenvolvedor("456.175.468-95");
-            guilherme.Nome = "guilherme";
-
-
-            gerenciadorBonificacao.Registrar(pedro);
-            gerenciadorBonificacao.Registrar(roberta);
-            gerenciadorBonificacao.Registrar(igor);
-            gerenciadorBonificacao.Registrar(camila);
-            gerenciadorBonificacao.Registrar(camila);
-
-            Console.WriteLine("Total de bonificação do mês " +
-                gerenciadorBonificacao.GetTotalBonificacao());
-
-        }
     }
 }
